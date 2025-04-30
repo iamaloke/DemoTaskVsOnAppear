@@ -12,4 +12,27 @@ final class ProductViewModel: ObservableObject {
     
     @Published private var products: [Product] = []
     
+    private var cancellables = Set<AnyCancellable>()
+    private let useCase: ProductUseCase
+    
+    init(useCase: ProductUseCase) {
+        self.useCase = useCase
+    }
+    
+    func getProducts() {
+        useCase
+            .getProducts()
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                    case .finished: print("Products fetched successfully")
+                    case .failure(let error): print("Error: \(error)")
+                }
+            } receiveValue: { [weak self] products in
+                guard let self = self else { return }
+                self.products = products
+            }
+            .store(in: &cancellables)
+    }
+    
 }

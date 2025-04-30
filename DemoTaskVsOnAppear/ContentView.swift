@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var viewModel: ProductViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                NavigationLink {
+                    DetailView()
+                } label: {
+                    Text("Click")
+                }
+            }
+            .padding()
+            .task {
+                viewModel.getProducts()
+            }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct DetailView: View {
+    var body: some View {
+        Text("Detail View")
+    }
 }

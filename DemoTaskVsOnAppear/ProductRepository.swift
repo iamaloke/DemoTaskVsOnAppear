@@ -22,9 +22,9 @@ enum SourceType {
 
 final class FactoryDataSource {
     
-    static func makeDataSource(source type: SourceType) -> ProductRepository {
+    static func makeDataSource(source type: SourceType, networkService: NetworkService?) -> ProductRepository {
         switch type {
-            case .remote: ProductRemoteDataSource()
+            case .remote: ProductRemoteDataSource(networkService: networkService)
             case .local: ProductLocalDataSource()
         }
     }
@@ -34,6 +34,10 @@ final class FactoryDataSource {
 final class ProductRemoteDataSource: ProductRepository {
     
     private var networkService: NetworkService? = nil
+    
+    init(networkService: NetworkService? = nil) {
+        self.networkService = networkService
+    }
     
     func fetchProducts() -> AnyPublisher<[Product], Error> {
         Future { [weak self] promise in

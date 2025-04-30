@@ -20,7 +20,7 @@ protocol NetworkService {
 
 final class NetworkManager: NetworkService {
     func request<T: Decodable>(endpoint: String, method: HttpMethod) async throws -> T {
-        guard let url = URL(string: "https://dummyjson.com/\(endpoint)") else {
+        guard let url = URL(string: endpoint) else {
             throw URLError(.badURL)
         }
         

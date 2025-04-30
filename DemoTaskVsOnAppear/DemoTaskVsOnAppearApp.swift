@@ -12,8 +12,10 @@ struct DemoTaskVsOnAppearApp: App {
     var body: some Scene {
         WindowGroup {
             let networkManager = NetworkManager()
-            let datasource = FactoryDataSource.makeDataSource(source: .remote)
-            ContentView()
+            let datasource = FactoryDataSource.makeDataSource(source: .remote, networkService: networkManager)
+            let useCase = ProductInteractor(repository: datasource)
+            let viewModel = ProductViewModel(useCase: useCase)
+            ContentView(viewModel: viewModel)
         }
     }
 }
