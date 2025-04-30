@@ -11,6 +11,8 @@ import SwiftUI
 struct DemoTaskVsOnAppearApp: App {
     var body: some Scene {
         WindowGroup {
+            let networkManager = NetworkManager()
+            let datasource = FactoryDataSource.makeDataSource(source: .remote)
             ContentView()
         }
     }
