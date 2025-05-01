@@ -6,13 +6,13 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 protocol ProductUseCase {
     func getProducts() -> AnyPublisher<[Product], Error>
 }
 
-final class ProductInteractor: ProductUseCase {
+class ProductInteractor: ProductUseCase {
     
     private var repository: ProductRepository
     

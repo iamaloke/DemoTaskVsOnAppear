@@ -8,9 +8,9 @@
 import Combine
 import SwiftUI
 
-final class ProductViewModel: ObservableObject {
+class ProductViewModel: ObservableObject {
     
-    @Published private var products: [Product] = []
+    @Published var products: [Product] = []
     
     private var cancellables = Set<AnyCancellable>()
     private let useCase: ProductUseCase
@@ -19,7 +19,7 @@ final class ProductViewModel: ObservableObject {
         self.useCase = useCase
     }
     
-    func getProducts() {
+    func fetchProducts() {
         useCase
             .getProducts()
             .receive(on: RunLoop.main)
