@@ -35,24 +35,7 @@ struct ProductListView: View {
             VStack {
                 List(viewModel.products, id: \.id) { product in
                     VStack {
-                        HStack(alignment: .top) {
-                            ImageView(imageUrl: product.image)
-                            .frame(width: 120)
-                            
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(product.title)
-                                    .fontWeight(.medium)
-                                
-                                Text(String(format: "%.2f", product.price))
-                                    .fontWeight(.bold)
-                                
-                                Text(product.category)
-                                    .underline()
-                                
-                                Text(product.description)
-                                    .lineLimit(2)
-                            }
-                        }
+                        ProductView(product: product)
                     }
                 }
             }
@@ -64,5 +47,31 @@ struct ProductListView: View {
 struct DetailView: View {
     var body: some View {
         Text("Detail View")
+    }
+}
+
+struct ProductView: View {
+    
+    var product: Product
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            ImageView(imageUrl: product.image)
+                .frame(width: 100)
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text(product.title)
+                    .fontWeight(.medium)
+                
+                Text(String(format: "%.2f", product.price))
+                    .fontWeight(.bold)
+                
+                Text(product.category)
+                    .underline()
+                
+                Text(product.description)
+                    .lineLimit(2)
+            }
+        }
     }
 }

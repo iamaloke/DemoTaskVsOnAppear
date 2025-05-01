@@ -34,5 +34,4 @@ class ProductViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
 }
